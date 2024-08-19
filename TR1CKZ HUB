@@ -11,14 +11,22 @@ hubMenu.Size = UDim2.new(0, 0, 0, 0)
 hubMenu.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
 
 local tweeninfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-local tweenforopen = TS:Create(hubMenu, tweeninfo, {Size = UDim2.new(0.2, 0, 0.3, 0)})
+local tweenforopen = TS:Create(hubMenu, tweeninfo, {Size = UDim2.new(0.3, 0, 0.4, 0)})
+
+local function centerHubMenu()
+    hubMenu.Position = UDim2.new(0.5, -hubMenu.Size.X.Offset / 2, 0.5, -hubMenu.Size.Y.Offset / 2)
+end
+
+tweenforopen.Completed:Connect(centerHubMenu)
 tweenforopen:Play()
 
 SGUI:SetCore("SendNotification", {
     Title = "TR1CKZ HUB",
-    Text = "Tr1ckz Hub has been injected, enjoy! :D",
+    Text = "Tr1ckz Hub has successfully been injected, enjoy! :D",
     Duration = 5
 })
+
+centerHubMenu()
 
 local exitButton = Instance.new("TextButton", hubMenu)
 exitButton.Text = "X"
@@ -32,11 +40,20 @@ exitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 local minimizeButton = Instance.new("TextButton", hubMenu)
 minimizeButton.Text = "-"
 minimizeButton.TextScaled = true
-minimizeButton.ZIndex = 3
-minimizeButton.Size = UDim2.new(0, 50, 0, 50) -- Fixed size of 50x50
+minimizeButton.ZIndex = 2
+minimizeButton.Size = UDim2.new(0, 50, 0, 50)
 minimizeButton.Position = UDim2.new(0.9, -50, 0, 0)
 minimizeButton.BackgroundTransparency = 1
 minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local Tr1ckzHubText = Instance.new("TextLabel", hubMenu)
+Tr1ckzHubText.Text = "Tr1ckz Hub"
+Tr1ckzHubText.TextColor3 = Color3.fromRGB(255, 255, 255)
+Tr1ckzHubText.TextScaled = true
+Tr1ckzHubText.BackgroundTransparency = 1
+Tr1ckzHubText.Size = UDim2.new(0, 300, 0, 50)
+Tr1ckzHubText.Position = UDim2.new(0, 0, 0, 0)
+Tr1ckzHubText.Font = Enum.Font.Cartoon
 
 local openorclose = true
 minimizeButton.Activated:Connect(function()
@@ -46,7 +63,7 @@ minimizeButton.Activated:Connect(function()
         openorclose = false
         minimizeButton.Text = "+"
     else
-        local tweenforopen2 = TS:Create(hubMenu, tweeninfo, {Size = UDim2.new(0.2, 0, 0.3, 0)})
+        local tweenforopen2 = TS:Create(hubMenu, tweeninfo, {Size = UDim2.new(0.3, 0, 0.4, 0)})
         tweenforopen2:Play()
         openorclose = true
         minimizeButton.Text = "-"
