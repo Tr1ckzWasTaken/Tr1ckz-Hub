@@ -1,0 +1,2 @@
+local sigma = "sigma"
+print(sigma)
