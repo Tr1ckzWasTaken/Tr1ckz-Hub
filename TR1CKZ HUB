@@ -1,30 +1,59 @@
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local UserInputService = game:GetService("UserInputService")
+local TS = game:GetService("TweenService")
 
 local PlayerGui = Player:WaitForChild("PlayerGui")
 local hubGui = Instance.new("ScreenGui", PlayerGui)
 local hubMenu = Instance.new("Frame", hubGui)
-hubMenu.Size = UDim2.new(0.2, 0, 0.3, 0)
+hubMenu.Size = UDim2.new(0, 0, 0, 0)
 hubMenu.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+
+local tweeninfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local tweenforopen = TS:Create(hubMenu, tweeninfo, {Size = UDim2.new(0.2, 0, 0.3, 0)})
+tweenforopen:Play()
 
 local exitButton = Instance.new("TextButton", hubMenu)
 exitButton.Text = "X"
 exitButton.TextScaled = true
 exitButton.ZIndex = 2
-exitButton.Size = UDim2.new(0.15, 0, 0.15, 0)
-exitButton.Position = UDim2.new(0.85, -exitButton.Size.X.Offset, 0, 0)
+exitButton.Size = UDim2.new(0, 50, 0, 50)
+exitButton.Position = UDim2.new(1, -50, 0, 0)
 exitButton.BackgroundTransparency = 1
 exitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local minimizeButton = Instance.new("TextButton", hubMenu)
+minimizeButton.Text = "-"
+minimizeButton.TextScaled = true
+minimizeButton.ZIndex = 3
+minimizeButton.Size = UDim2.new(0, 50, 0, 50) -- Fixed size of 50x50
+minimizeButton.Position = UDim2.new(0.9, -50, 0, 0)
+minimizeButton.BackgroundTransparency = 1
+minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local openorclose = true
+minimizeButton.Activated:Connect(function()
+    if openorclose then
+        local tweenforclose = TS:Create(hubMenu, tweeninfo, {Size = UDim2.new(0.2, 0, 0.05, 0)})
+        tweenforclose:Play()
+        openorclose = false
+        minimizeButton.Text = "+"
+    else
+        local tweenforopen2 = TS:Create(hubMenu, tweeninfo, {Size = UDim2.new(0.2, 0, 0.3, 0)})
+        tweenforopen2:Play()
+        openorclose = true
+        minimizeButton.Text = "-"
+    end
+end)
+
+exitButton.Activated:Connect(function()
+    hubGui:Destroy()
+end)
 
 local dragging
 local dragInput
 local dragStart
 local startPos
-
-exitButton.Activated:Connect(function()
-    hubGui:Destroy()
-end)
 
 local function update(input)
     local delta = input.Position - dragStart
