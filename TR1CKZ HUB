@@ -5,11 +5,22 @@ local UserInputService = game:GetService("UserInputService")
 local PlayerGui = Player:WaitForChild("PlayerGui")
 local hubGui = Instance.new("ScreenGui", PlayerGui)
 local hubMenu = Instance.new("Frame", hubGui)
-hubMenu.Size = UDim2.new(0.5, 0, 0.5, 0)
+hubMenu.Size = UDim2.new(0.2, 0, 0.5, 0)
+
+local exitButton = Instance.new("TextButton", hubMenu)
+exitButton.Text = "X"
+exitButton.ZIndex = 2
+exitButton.Size = UDim2.new(0.1, 0, 0.1, 0)
+exitButton.Position = UDim2.new(1, -exitButton.Size.X.Offset, 0, 0)
+
 local dragging
 local dragInput
 local dragStart
 local startPos
+
+exitButton.Activated:Connect(function()
+    hubGui:Destroy()
+end)
 
 local function update(input)
     local delta = input.Position - dragStart
