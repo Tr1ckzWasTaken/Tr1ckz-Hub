@@ -6,7 +6,7 @@ local PlayerGui = Player:WaitForChild("PlayerGui")
 local hubGui = Instance.new("ScreenGui", PlayerGui)
 local hubMenu = Instance.new("Frame", hubGui)
 hubMenu.Size = UDim2.new(0.2, 0, 0.3, 0)
-hubMenu.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
+hubMenu.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
 
 local exitButton = Instance.new("TextButton", hubMenu)
 exitButton.Text = "X"
@@ -15,6 +15,7 @@ exitButton.ZIndex = 2
 exitButton.Size = UDim2.new(0.15, 0, 0.15, 0)
 exitButton.Position = UDim2.new(0.85, -exitButton.Size.X.Offset, 0, 0)
 exitButton.BackgroundTransparency = 1
+exitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 local dragging
 local dragInput
